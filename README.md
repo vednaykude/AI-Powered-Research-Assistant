@@ -116,45 +116,58 @@ All implementation scripts are in `src/`:
 # **Results**
 
 ## **Main Findings**
-- RAG improves ROUGE-L by **~15–25%**
-- Summaries become more factual + grounded
-- LLM hallucinations decrease significantly
+- Retrieval improves factual grounding and reduces hallucinations  
+- ROUGE-L improvements are **modest** and below initial expectations  
+- Qualitative gains are stronger than what ROUGE alone suggests
 
-### Example Observation:
-Baseline summary misses key details from article → RAG summary includes them.
+> **Takeaway:** RAG summaries include more article-specific details, even if ROUGE gains are limited.
+
+### Example Observation
+Baseline summaries sometimes omit core facts → RAG summaries recover those key details from retrieved chunks.
+
+---
 
 ## **Supplementary Results**
-- Increasing **top-k** beyond 5 reduces quality (noise introduced)
-- Chunk size smaller than 300 tokens damages retrieval quality
-- MiniLM embeddings work better than GloVe or TF-IDF baselines
+- **Top-k > 5** introduces noise and drops performance  
+- **Chunk size < 300 tokens** fragments context and hurts retrieval  
+- MiniLM embeddings **outperform TF-IDF** for semantic search  
+- ROUGE underestimates improvements in truthfulness and specificity  
 
 ---
 
 # **Discussion**
-Even small RAG setups significantly improve factual accuracy. However, performance varies based on chunk size and retrieval quality. Future improvements include:
-- rerankers  
-- better LLMs  
-- multi-hop retrieval  
-- hybrid BM25 + dense search  
+Even with a small LLM and dataset subset, RAG consistently increases factual accuracy.  
+However, performance strongly depends on:
+- Chunking strategy  
+- Retrieval precision  
+- Model size and context window  
+
+Future work:
+- Stronger LLMs (Llama-3, Mixtral, Qwen)  
+- **Hybrid BM25 + dense retrieval**  
+- Cross-encoder reranking  
+- Semantic-based chunk splitting  
+- Scaling dataset size beyond 200 articles  
 
 ---
 
 # **Conclusion**
-This project shows that RAG meaningfully improves the summarization of long-form news articles. A full end-to-end reproducible codebase demonstrates:
-- preprocessing
-- embedding generation
-- retrieval
-- LLM summarization
-- evaluation with ROUGE
+This project successfully demonstrates an end-to-end RAG system for news summarization:
 
-The system is modular and can be extended to other domains.
+- 🧹 Preprocessing + chunking  
+- 🔍 Embedding + vector search  
+- 🧠 LLM summarization  
+- 📊 ROUGE evaluation  
+
+While ROUGE gains are small, RAG **clearly improves factual grounding**.  
+The system is modular, reproducible, and easily extensible to other domains.
 
 ---
 
 # **References**
-- CNN/DailyMail Dataset — https://huggingface.co/datasets/ccdv/cnn_dailymail  
-- ChromaDB — https://www.trychroma.com  
-- SentenceTransformers — https://www.sbert.net  
-- Mistral Model Card  
-- LLaMA 3 Model Card  
-- Rouge Score package  
+- CNN/DailyMail Dataset — HuggingFace  
+- ChromaDB Vector Store  
+- SentenceTransformers  
+- Mistral / LLaMA model documentation  
+- ROUGE Metric Documentation
+  
