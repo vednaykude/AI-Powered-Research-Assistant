@@ -1,0 +1,14 @@
+transformers==4.44.2
+datasets==2.20.0
+torch==2.9.1
+
+evaluate==0.4.2
+rouge-score==0.1.2
+
+numpy==1.26.4
+pandas==2.2.2
+
+tqdm==4.66.4
+
+jupyter==1.0.0
+ipykernel==6.29.4
